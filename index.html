@@ -137,6 +137,50 @@ responsive, real-time multimodal intelligence.
   </div>
 </section>
 
+  <!-- Dynamic CoT Section -->
+<section class="section" id="cot-section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Step-by-Step Reasoning (CoT)</h2>
+    
+    <div class="cot-container">
+      <div id="cot-step" class="box has-text-centered" style="min-height:100px; font-size:1.2em;">
+        Loading reasoning steps...
+      </div>
+      <div class="buttons is-centered mt-3">
+        <button class="button is-info" onclick="prevStep()">Prev</button>
+        <button class="button is-info" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const cotSteps = [
+  "Frame 1: The scene shows a man holding a basketball.",
+  "Frame 2: The man prepares to shoot the ball.",
+  "Frame 3: The ball is in the air.",
+  "Frame 4: The ball goes into the hoop, scoring a point."
+];
+
+let currentStep = 0;
+
+function updateCot() {
+  document.getElementById("cot-step").innerText = cotSteps[currentStep];
+}
+
+function nextStep() {
+  if(currentStep < cotSteps.length - 1) currentStep++;
+  updateCot();
+}
+
+function prevStep() {
+  if(currentStep > 0) currentStep--;
+  updateCot();
+}
+
+updateCot();
+</script>
+
 <!-- Highlights -->
 <section class="section">
   <div class="container is-max-desktop">

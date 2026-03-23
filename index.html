@@ -109,10 +109,29 @@
     <h2 class="title is-3 has-text-centered">Abstract</h2>
 
     <p>
-      Large Vision-Language Models (LVLMs) struggle with streaming video reasoning due to memory and latency constraints.
-      We propose Think-as-You-See (TaYS), a streaming Chain-of-Thought framework that incrementally processes video frames
-      while maintaining reasoning consistency. TaYS introduces dual KV-cache and decoupled positional encoding for efficient
-      long-context modeling. Experiments demonstrate strong improvements in both efficiency and reasoning quality.
+      Large Vision-Language Models (LVLMs) have made signif
+icant strides in video reasoning, yet most existing systems
+rely on a batch inference paradigm that processes the en
+tire video before reasoning begins. This “wait-and-see”
+approach neglects the inherently streaming nature of real
+world video, introducing substantial latency and exacerbat
+ing temporal drift. In this paper, we propose Think-as-You
+See (TaYS), a frameworkthatshifts LVLMstowardastream
+ing reasoning paradigm, enabling continuous, incremental
+inference synchronized with the visual stream. We introduce
+three key innovations: (1) a streaming attention mask to
+enforce temporal causality; (2) a decoupled positional en
+coding strategy to resolve cross-modal index conflicts; and
+(3) a parallel dual KV-cache mechanism that decouples vi
+sual encoding from reasoning generation, enabling concur
+rent frame ingestion and token decoding. Empirical evalua
+tions on the VideoEspresso benchmark using the Qwen2.5
+VL family demonstrate that TaYS improves reasoning ac
+curacy by 2.9%, reduces Time-to-First-Token (TTFT) from
+10.6s to near-zero, and cuts reasoning-event deviation by
+55%. Our results suggest that aligning LVLM reasoning
+with the streaming nature of video is a vital step toward
+responsive, real-time multimodal intelligence.
     </p>
 
   </div>

@@ -109,77 +109,11 @@
     <h2 class="title is-3 has-text-centered">Abstract</h2>
 
     <p>
-      Large Vision-Language Models (LVLMs) have made signif
-icant strides in video reasoning, yet most existing systems
-rely on a batch inference paradigm that processes the en
-tire video before reasoning begins. This “wait-and-see”
-approach neglects the inherently streaming nature of real
-world video, introducing substantial latency and exacerbat
-ing temporal drift. In this paper, we propose Think-as-You
-See (TaYS), a frameworkthatshifts LVLMstowardastream
-ing reasoning paradigm, enabling continuous, incremental
-inference synchronized with the visual stream. We introduce
-three key innovations: (1) a streaming attention mask to
-enforce temporal causality; (2) a decoupled positional en
-coding strategy to resolve cross-modal index conflicts; and
-(3) a parallel dual KV-cache mechanism that decouples vi
-sual encoding from reasoning generation, enabling concur
-rent frame ingestion and token decoding. Empirical evalua
-tions on the VideoEspresso benchmark using the Qwen2.5
-VL family demonstrate that TaYS improves reasoning ac
-curacy by 2.9%, reduces Time-to-First-Token (TTFT) from
-10.6s to near-zero, and cuts reasoning-event deviation by
-55%. Our results suggest that aligning LVLM reasoning
-with the streaming nature of video is a vital step toward
-responsive, real-time multimodal intelligence.
+      Large Vision-Language Models (LVLMs) have made significant strides in video reasoning, yet most existing systems rely on a batch inference paradigm that processes the entire video before reasoning begins. This “wait-and-see” approach neglects the inherently streaming nature of real-world video, introducing substantial latency and exacerbating temporal drift. In this paper, we propose Think-as-You-See (TaYS), a framework that shifts LVLMs toward a streaming reasoning paradigm, enabling continuous, incremental inference synchronized with the visual stream. We introduce three key innovations: (1) a streaming attention mask to enforce temporal causality; (2) a decoupled positional encoding strategy to resolve cross-modal index conflicts; and (3) a parallel dual KV-cache mechanism that decouples visual encoding from reasoning generation, enabling concurrent frame ingestion and token decoding. Empirical evaluations on the VideoEspresso benchmark using the Qwen2.5-VL family demonstrate that TaYS improves reasoning accuracy by 2.9%, reduces Time-to-First-Token (TTFT) from 10.6s to near-zero, and cuts reasoning-event deviation by 55%. Our results suggest that aligning LVLM reasoning with the streaming nature of video is a vital step toward responsive, real-time multimodal intelligence.
     </p>
 
   </div>
 </section>
-
-  <!-- Dynamic CoT Section -->
-<section class="section" id="cot-section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Step-by-Step Reasoning (CoT)</h2>
-    
-    <div class="cot-container">
-      <div id="cot-step" class="box has-text-centered" style="min-height:100px; font-size:1.2em;">
-        Loading reasoning steps...
-      </div>
-      <div class="buttons is-centered mt-3">
-        <button class="button is-info" onclick="prevStep()">Prev</button>
-        <button class="button is-info" onclick="nextStep()">Next</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-const cotSteps = [
-  "Frame 1: The scene shows a man holding a basketball.",
-  "Frame 2: The man prepares to shoot the ball.",
-  "Frame 3: The ball is in the air.",
-  "Frame 4: The ball goes into the hoop, scoring a point."
-];
-
-let currentStep = 0;
-
-function updateCot() {
-  document.getElementById("cot-step").innerText = cotSteps[currentStep];
-}
-
-function nextStep() {
-  if(currentStep < cotSteps.length - 1) currentStep++;
-  updateCot();
-}
-
-function prevStep() {
-  if(currentStep > 0) currentStep--;
-  updateCot();
-}
-
-updateCot();
-</script>
 
 <!-- Highlights -->
 <section class="section">
@@ -187,10 +121,10 @@ updateCot();
     <h2 class="title is-3 has-text-centered">Highlights</h2>
 
     <ul>
-      <li>🔥 First streaming Chain-of-Thought framework for LVLMs</li>
-      <li>⚡ Real-time reasoning without waiting for full video</li>
-      <li>🧠 Efficient dual KV-cache design</li>
-      <li>📈 Strong performance on long-video reasoning tasks</li>
+      <li>🔥 <strong>Streaming CoT Paradigm:</strong> We introduce a principled streaming reasoning paradigm for LVLMs, enabling incremental, temporally grounded inference aligned with unfolding visual evidence.</li>
+      <li>⚡ <strong>Near-Zero Latency:</strong> Reduces Time-to-First-Token (TTFT) from 10.6s (Batch) to near-zero (<b>~10<sup>-6</sup>s</b>) by decoupling visual encoding and reasoning generation.</li>
+      <li>🧠 <strong>Parallel Dual KV-Cache:</strong> Efficiently manages visual and textual states independently via a dual-cache system, enabling concurrent frame ingestion and token decoding.</li>
+      <li>📈 <strong>Superior Performance:</strong> Improves reasoning accuracy by <b>2.9%</b> over batch CoT baselines and cuts reasoning-event deviation by <b>55%</b> (from 1.52s to 0.69s).</li>
     </ul>
 
   </div>
@@ -203,7 +137,24 @@ updateCot();
     <h2 class="title is-3 has-text-centered">Method</h2>
 
     <img src="static/images/pipeline.png">
-    <p class="has-text-centered">Overview of TaYS framework.</p>
+    <p class="has-text-centered">Overview of the TaYS framework. Parallel video reasoning KV caches enable concurrent visual encoding and reasoning generation.</p>
+    
+    <div class="content mt-5">
+      <p>
+        TaYS is a supervised fine-tuning framework that integrates streaming video CoT generation with streaming training and inference mechanisms. To overcome the intrinsic serialization bottleneck of naive interleaving strategies, we introduce a parallel streaming paradigm termed <strong>Think-as-You-See (TaYS)</strong>.
+      </p>
+      <ul>
+        <li>
+          <strong>Streaming Attention Mask:</strong> We design a streaming-aware attention mask to enforce temporal causality. A reasoning step at time <em>t</em> strictly attends to visual evidence accumulated up to <em>t</em>, remaining agnostic to future frames.
+        </li>
+        <li>
+          <strong>Decoupled Positional Encoding:</strong> We propose a modality-decoupled positional indexing scheme to resolve index conflicts arising from the concurrent growth of visual and reasoning streams. This assigns independent positional axes for vision and reasoning tokens.
+        </li>
+        <li>
+          <strong>Parallel Dual KV-Cache:</strong> We maintain two modality-specific caches: a read-heavy video cache and a dynamic text cache. This decouples visual encoding from reasoning generation, establishing a recursive merge–generate–split loop where perception and reasoning evolve simultaneously.
+        </li>
+      </ul>
+    </div>
 
   </div>
 </section>
@@ -215,7 +166,18 @@ updateCot();
     <h2 class="title is-3 has-text-centered">Results</h2>
 
     <img src="static/images/results.png">
-    <p class="has-text-centered">Comparison with baselines.</p>
+    <p class="has-text-centered">Comparison with baselines on the extended VIDEOESPRESSO benchmark.</p>
+
+    <div class="content mt-5">
+      <p>
+        We instantiate TaYS on the Qwen2.5-VL family and evaluate its efficacy across tasks requiring complex event dynamics and causal reasoning. On the extended VideoEspresso benchmark:
+      </p>
+      <ul>
+        <li><strong>Reasoning Quality:</strong> TaYS improves reasoning accuracy by <strong>2.9%</strong> over batch CoT baselines and achieves a <strong>43.7%</strong> win rate in human-aligned GPT-5 evaluations.</li>
+        <li><strong>Latency:</strong> TaYS reduces the Time-to-First-Token (TTFT) from 10.6s in batch mode to nearly zero, maintaining a stable end-to-end delay of ~12s across all frame rates.</li>
+        <li><strong>Temporal Grounding:</strong> TaYS improves temporal grounding by reducing reasoning-event deviation from 1.52s to <strong>0.69s</strong> (a <strong>55%</strong> reduction), ensuring that reasoning is tightly synchronized with visual evidence.</li>
+      </ul>
+    </div>
 
   </div>
 </section>

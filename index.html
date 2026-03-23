@@ -34,6 +34,247 @@
   <link rel="stylesheet" href="static/css/index.css">
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  
+  <!-- TaYS Demo Component Styles -->
+  <style>
+    :root {
+        --bg-color: #f0f2f5;
+        --box-bg: #ffffff;
+        --border-color: #e1e4e8;
+        --text-main: #24292e;
+        --text-muted: #586069;
+        --answer-color: #10a37f;
+    }
+
+    .diagram-container {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        gap: 16px;
+        width: 100%;
+        max-width: 900px;
+        height: 420px;
+        background: var(--box-bg);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border-color);
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+
+    .input-section {
+        width: 140px;
+        display: flex;
+        flex-direction: column;
+        border-right: 2px dashed #d1d5da;
+        padding-right: 16px;
+        flex-shrink: 0;
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-align: center;
+        height: 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .frames-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 14px;
+        width: 100%;
+        padding: 6px 0;
+        box-sizing: border-box;
+    }
+
+    .video-frame {
+        width: 100px;
+        height: 60px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 13px;
+        opacity: 0;
+        transform: translateX(-20px) scale(0.9);
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        flex-shrink: 0;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-frame.visible {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+
+    .ellipsis-frame {
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #959da5;
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.4s ease;
+        flex-shrink: 0;
+    }
+
+    .ellipsis-frame.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .llm-section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        padding: 0 10px;
+        flex-shrink: 0;
+    }
+
+    .llm-box {
+        width: 120px;
+        height: 120px;
+        background: white;
+        border: 2px solid #24292e;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .llm-box::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(0, 0, 0, 0.05) 0%, transparent 70%);
+        opacity: 0;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(0.8); opacity: 0; }
+        50% { opacity: 0.5; }
+        100% { transform: scale(1.2); opacity: 0; }
+    }
+
+    .llm-icon {
+        font-size: 44px;
+        margin-bottom: 4px;
+        z-index: 2;
+    }
+
+    .arrow {
+        font-size: 18px;
+        color: #959da5;
+        font-weight: bold;
+    }
+
+    .output-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    .text-output-box {
+        flex: 1;
+        background: #f8f9fa;
+        border: 1px solid #eaecef;
+        border-radius: 10px;
+        padding: 14px;
+        font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 1.55;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        position: relative;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+        box-sizing: border-box;
+    }
+
+    .tag-think {
+        color: #d73a49;
+        font-weight: 800;
+        font-size: 0.9em;
+        opacity: 0.8;
+    }
+
+    .think-content {
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .tag-answer {
+        color: #0366d6;
+        font-weight: 800;
+        font-size: 0.9em;
+        opacity: 0.8;
+        margin-top: 8px;
+        display: inline-block;
+    }
+
+    .answer-content {
+        color: var(--answer-color);
+        font-weight: 700;
+    }
+
+    .cursor::after {
+        content: '▋';
+        animation: blink 1s step-start infinite;
+        color: #24292e;
+        margin-left: 2px;
+    }
+
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+
+    .text-output-box::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .text-output-box::-webkit-scrollbar-track {
+        background: transparent;
+        margin: 6px 0;
+    }
+
+    .text-output-box::-webkit-scrollbar-thumb {
+        background: #d1d5da;
+        border-radius: 3px;
+    }
+
+    .text-output-box::-webkit-scrollbar-thumb:hover {
+        background: #959da5;
+    }
+  </style>
 </head>
 
 <body>
@@ -70,30 +311,46 @@
 
       <!-- Links -->
       <div class="mt-4">
-
         <a href="https://arxiv.org/abs/2603.02872" class="button is-dark is-rounded">
           <span class="icon"><i class="ai ai-arxiv"></i></span>
           <span>arXiv</span>
         </a>
-
         <a href="https://github.com/EIT-NLP/StreamingLLM/tree/main/TaYS" class="button is-dark is-rounded">
           <span class="icon"><i class="fab fa-github"></i></span>
           <span>Code</span>
         </a>
-
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- Teaser -->
+<!-- Teaser with TaYS Demo Component -->
 <section class="section">
   <div class="container is-max-desktop">
-
-    <video autoplay controls muted loop width="100%">
-      <source src="static/videos/demo.mp4" type="video/mp4">
-    </video>
+    
+    <!-- TaYS Interactive Demo -->
+    <div class="diagram-container">
+        <!-- Left: Streaming Buffer -->
+        <div class="input-section">
+            <div class="section-title">Video Stream</div>
+            <div class="frames-container" id="framesContainer"></div>
+        </div>
+        <!-- Center: LLM -->
+        <div class="llm-section">
+            <div class="arrow">⟶</div>
+            <div class="llm-box">
+                <div class="llm-icon">🧠</div>
+                <div style="text-align:center;font-size:20px;z-index:2;">TaYS</div>
+            </div>
+            <div class="arrow">⟶</div>
+        </div>
+        <!-- Right: CoT Output -->
+        <div class="output-section">
+            <div class="section-title">Reasoning Output</div>
+            <div class="text-output-box cursor" id="outputBox"></div>
+        </div>
+    </div>
 
     <p class="has-text-centered mt-2">
       TaYS enables real-time streaming Chain-of-Thought reasoning for large vision-language models.
@@ -105,13 +362,10 @@
 <!-- Abstract -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
-
     <h2 class="title is-3 has-text-centered">Abstract</h2>
-
     <p>
-      Large Vision-Language Models (LVLMs) have made significant strides in video reasoning, yet most existing systems rely on a batch inference paradigm that processes the entire video before reasoning begins. This “wait-and-see” approach neglects the inherently streaming nature of real-world video, introducing substantial latency and exacerbating temporal drift. In this paper, we propose Think-as-You-See (TaYS), a framework that shifts LVLMs toward a streaming reasoning paradigm, enabling continuous, incremental inference synchronized with the visual stream. We introduce three key innovations: (1) a streaming attention mask to enforce temporal causality; (2) a decoupled positional encoding strategy to resolve cross-modal index conflicts; and (3) a parallel dual KV-cache mechanism that decouples visual encoding from reasoning generation, enabling concurrent frame ingestion and token decoding. Empirical evaluations on the VideoEspresso benchmark using the Qwen2.5-VL family demonstrate that TaYS improves reasoning accuracy by 2.9%, reduces Time-to-First-Token (TTFT) from 10.6s to near-zero, and cuts reasoning-event deviation by 55%. Our results suggest that aligning LVLM reasoning with the streaming nature of video is a vital step toward responsive, real-time multimodal intelligence.
+      Large Vision-Language Models (LVLMs) have made significant strides in video reasoning, yet most existing systems rely on a batch inference paradigm that processes the entire video before reasoning begins. This "wait-and-see" approach neglects the inherently streaming nature of real-world video, introducing substantial latency and exacerbating temporal drift. In this paper, we propose Think-as-You-See (TaYS), a framework that shifts LVLMs toward a streaming reasoning paradigm, enabling continuous, incremental inference synchronized with the visual stream. We introduce three key innovations: (1) a streaming attention mask to enforce temporal causality; (2) a decoupled positional encoding strategy to resolve cross-modal index conflicts; and (3) a parallel dual KV-cache mechanism that decouples visual encoding from reasoning generation, enabling concurrent frame ingestion and token decoding. Empirical evaluations on the VideoEspresso benchmark using the Qwen2.5-VL family demonstrate that TaYS improves reasoning accuracy by 2.9%, reduces Time-to-First-Token (TTFT) from 10.6s to near-zero, and cuts reasoning-event deviation by 55%. Our results suggest that aligning LVLM reasoning with the streaming nature of video is a vital step toward responsive, real-time multimodal intelligence.
     </p>
-
   </div>
 </section>
 
@@ -119,24 +373,20 @@
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Highlights</h2>
-
     <ul>
       <li>🔥 <strong>Streaming CoT Paradigm:</strong> We introduce a principled streaming reasoning paradigm for LVLMs, enabling incremental, temporally grounded inference aligned with unfolding visual evidence.</li>
       <li>⚡ <strong>Near-Zero Latency:</strong> Reduces Time-to-First-Token (TTFT) from 10.6s (Batch) to near-zero (<b>~10<sup>-6</sup>s</b>) by decoupling visual encoding and reasoning generation.</li>
       <li>🧠 <strong>Parallel Dual KV-Cache:</strong> Efficiently manages visual and textual states independently via a dual-cache system, enabling concurrent frame ingestion and token decoding.</li>
       <li>📈 <strong>Superior Performance:</strong> Improves reasoning accuracy by <b>2.9%</b> over batch CoT baselines and cuts reasoning-event deviation by <b>55%</b> (from 1.52s to 0.69s).</li>
     </ul>
-
   </div>
 </section>
 
 <!-- Method -->
 <section class="section">
   <div class="container is-max-desktop">
-
     <h2 class="title is-3 has-text-centered">Method</h2>
-
-    <img src="static/images/pipeline.png">
+    <img src="static/images/pipeline.png" style="max-width:100%;height:auto;">
     <p class="has-text-centered">Overview of the TaYS framework. Parallel video reasoning KV caches enable concurrent visual encoding and reasoning generation.</p>
     
     <div class="content mt-5">
@@ -155,17 +405,14 @@
         </li>
       </ul>
     </div>
-
   </div>
 </section>
 
 <!-- Results -->
 <section class="section">
   <div class="container is-max-desktop">
-
     <h2 class="title is-3 has-text-centered">Results</h2>
-
-    <img src="static/images/results.png">
+    <img src="static/images/results.png" style="max-width:100%;height:auto;">
     <p class="has-text-centered">Comparison with baselines on the extended VIDEOESPRESSO benchmark.</p>
 
     <div class="content mt-5">
@@ -178,23 +425,19 @@
         <li><strong>Temporal Grounding:</strong> TaYS improves temporal grounding by reducing reasoning-event deviation from 1.52s to <strong>0.69s</strong> (a <strong>55%</strong> reduction), ensuring that reasoning is tightly synchronized with visual evidence.</li>
       </ul>
     </div>
-
   </div>
 </section>
 
 <!-- BibTeX -->
 <section class="section">
   <div class="container is-max-desktop">
-
     <h2 class="title">BibTeX</h2>
-
 <pre><code>@article{tays2026,
   title={Think-as-You-See: Streaming Chain-of-Thought Reasoning for Large Vision-Language Models},
   author={Zhang, Jialiang and Tong, Junlong and Lin, Junyan and Wu, Hao and Sun, Yirong and Ma, Yunpu and Shen, Xiaoyu},
   journal={arXiv preprint arXiv:2603.02872},
   year={2026}
 }</code></pre>
-
   </div>
 </section>
 
@@ -203,6 +446,152 @@
     <p>Project Page for TaYS (CVPR 2026)</p>
   </div>
 </footer>
+
+<!-- TaYS Demo Component Script -->
+<script>
+(function() {
+    const framesContainer = document.getElementById('framesContainer');
+    const outputBox = document.getElementById('outputBox');
+    let isRunning = false;
+    let currentFullText = "";
+    let dynamicSteps = [];
+    let currentReadableColor = "#5c6bc0";
+
+    function getReadableTextColor(hexColor) {
+        const r = parseInt(hexColor.substr(1, 2), 16);
+        const g = parseInt(hexColor.substr(3, 2), 16);
+        const b = parseInt(hexColor.substr(5, 2), 16);
+        const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+        if (yiq < 120) {
+            return hexColor;
+        } else {
+            const factor = 0.6;
+            const nr = Math.floor(r * factor);
+            const ng = Math.floor(g * factor);
+            const nb = Math.floor(b * factor);
+            return `rgb(${nr}, ${ng}, ${nb})`;
+        }
+    }
+
+    function generateRandomScenario() {
+        return [
+            { type: "text", text: "<think>\n" },
+            {
+                type: "keyframe", color: "#5C4033",
+                text: "Okay, I can see someone setting up a paper filter and taking out some fresh coffee beans. It looks like they are just starting to prep everything. "
+            },
+            { type: "ellipsis" },
+            {
+                type: "keyframe", color: "#A0522D",
+                text: "Now they are gently pouring hot water over the coffee grounds in a slow, circular motion. The extraction process is nicely underway. "
+            },
+            { type: "ellipsis" },
+            {
+                type: "keyframe", color: "#D2B48C",
+                text: "The brewing has finished. There's a full, steaming ceramic mug sitting on the table. \n"
+            },
+            { type: "text", text: "</think>\n" },
+            { type: "text", text: "<answer>Based on the video, the person is making a fresh cup of hand-drip coffee. The sequence clearly shows them preparing the beans and filter, carefully extracting the coffee with hot water, and finally serving it in a mug ready to be enjoyed.</answer>" }
+        ];
+    }
+
+    function startSimulation() {
+        if (isRunning) return;
+        isRunning = true;
+
+        framesContainer.innerHTML = '';
+        outputBox.innerHTML = '';
+        currentFullText = '';
+        currentReadableColor = "#5c6bc0";
+
+        dynamicSteps = generateRandomScenario();
+        executeStep(0);
+    }
+
+    function executeStep(stepIndex) {
+        if (stepIndex >= dynamicSteps.length) {
+            isRunning = false;
+            setTimeout(() => { startSimulation(); }, 3500);
+            return;
+        }
+
+        const step = dynamicSteps[stepIndex];
+
+        if (step.type === "keyframe") {
+            const frameDiv = document.createElement('div');
+            frameDiv.className = 'video-frame';
+            frameDiv.style.backgroundColor = step.color;
+            frameDiv.innerText = `Frame`;
+            framesContainer.appendChild(frameDiv);
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => frameDiv.classList.add('visible'));
+            });
+
+            currentReadableColor = getReadableTextColor(step.color);
+
+            setTimeout(() => {
+                typeText(step.text, () => executeStep(stepIndex + 1));
+            }, 400);
+
+        } else if (step.type === "ellipsis") {
+            const ellipsisDiv = document.createElement('div');
+            ellipsisDiv.className = 'ellipsis-frame';
+            ellipsisDiv.innerText = "...";
+            framesContainer.appendChild(ellipsisDiv);
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => ellipsisDiv.classList.add('visible'));
+            });
+
+            setTimeout(() => executeStep(stepIndex + 1), 600);
+
+        } else if (step.type === "text") {
+            typeText(step.text, () => executeStep(stepIndex + 1));
+        }
+    }
+
+    function typeText(textToType, callback) {
+        let charIndex = 0;
+
+        function typeNextChar() {
+            if (charIndex < textToType.length) {
+                currentFullText += textToType.charAt(charIndex);
+
+                let formattedHTML = currentFullText
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/\n/g, "<br>");
+
+                formattedHTML = formattedHTML
+                    .replace(/&lt;think&gt;/g, "<span class='tag-think'>&lt;think&gt;</span><span class='think-content' style='color: " + currentReadableColor + ";'>")
+                    .replace(/&lt;\/think&gt;/g, "</span><span class='tag-think'>&lt;/think&gt;</span>")
+                    .replace(/&lt;answer&gt;/g, "<span class='tag-answer'>&lt;answer&gt;</span><br><span class='answer-content'>")
+                    .replace(/&lt;\/answer&gt;/g, "</span><br><span class='tag-answer'>&lt;/answer&gt;</span>");
+
+                outputBox.innerHTML = formattedHTML;
+                outputBox.scrollTop = outputBox.scrollHeight;
+
+                charIndex++;
+                setTimeout(typeNextChar, 10 + Math.random() * 15);
+            } else {
+                callback();
+            }
+        }
+        typeNextChar();
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(startSimulation, 500);
+        });
+    } else {
+        setTimeout(startSimulation, 500);
+    }
+})();
+</script>
 
 </body>
 </html>

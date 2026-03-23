@@ -4,164 +4,174 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="title" content="Think-as-You-See: Streaming Chain-of-Thought Reasoning for LVLMs">
-  <meta name="description" content="TaYS enables streaming Chain-of-Thought reasoning for large vision-language models with efficient memory and improved video understanding.">
-  <meta name="keywords" content="streaming reasoning, LVLM, video understanding, chain-of-thought, CVPR">
-  <meta name="author" content="Jialiang Zhang, Junlong Tong, Junyan Lin">
-
   <title>Think-as-You-See (TaYS) | CVPR 2026</title>
 
+  <!-- SEO -->
+  <meta name="description" content="Think-as-You-See (TaYS) enables streaming Chain-of-Thought reasoning for large vision-language models, supporting real-time video understanding.">
+  <meta name="keywords" content="Streaming Reasoning, LVLM, Video Understanding, Chain-of-Thought, CVPR">
+  <meta name="author" content="Jialiang Zhang, Junlong Tong, Junyan Lin, Hao Wu, Yirong Sun, Yunpu Ma, Xiaoyu Shen">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="Think-as-You-See (TaYS)">
+  <meta property="og:description" content="Streaming Chain-of-Thought Reasoning for LVLMs">
+  <meta property="og:url" content="https://EIT-NLP.github.io/StreamingLLM/TaYS/">
+  <meta property="og:image" content="static/images/teaser.png">
+
+  <!-- Citation -->
+  <meta name="citation_title" content="Think-as-You-See: Streaming Chain-of-Thought Reasoning for Large Vision-Language Models">
+  <meta name="citation_author" content="Zhang, Jialiang">
+  <meta name="citation_author" content="Tong, Junlong">
+  <meta name="citation_author" content="Lin, Junyan">
+  <meta name="citation_author" content="Wu, Hao">
+  <meta name="citation_author" content="Sun, Yirong">
+  <meta name="citation_author" content="Ma, Yunpu">
+  <meta name="citation_author" content="Shen, Xiaoyu">
+  <meta name="citation_conference_title" content="CVPR 2026">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2603.02872.pdf">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/index.css">
-
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-
 </head>
 
 <body>
 
 <section class="hero">
   <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
+    <div class="container is-max-desktop has-text-centered">
 
-          <h1 class="title is-1 publication-title">
-            Think-as-You-See: Streaming Chain-of-Thought Reasoning for LVLMs
-          </h1>
+      <h1 class="title is-1">
+        Think-as-You-See: Streaming Chain-of-Thought Reasoning for LVLMs
+      </h1>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">Jialiang Zhang<sup>*</sup>,</span>
-            <span class="author-block">Junlong Tong<sup>*</sup>,</span>
-            <span class="author-block">Junyan Lin,</span>
-            <span class="author-block">Hao Wu,</span>
-            <span class="author-block">Yirong Sun,</span>
-            <span class="author-block">Yunpu Ma,</span>
-            <span class="author-block">Xiaoyu Shen<sup>†</sup></span>
-          </div>
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">Your Institution<br>CVPR 2026</span>
-            <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution</small></span>
-          </div>
-
-          <div class="publication-links">
-
-            <span class="link-block">
-              <a href="#" class="button is-dark is-rounded">
-                <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                <span>Paper</span>
-              </a>
-            </span>
-
-            <span class="link-block">
-              <a href="https://github.com/YOUR_REPO" target="_blank"
-              class="button is-dark is-rounded">
-                <span class="icon"><i class="fab fa-github"></i></span>
-                <span>Code</span>
-              </a>
-            </span>
-
-            <span class="link-block">
-              <a href="#" target="_blank"
-              class="button is-dark is-rounded">
-                <span class="icon"><i class="ai ai-arxiv"></i></span>
-                <span>arXiv</span>
-              </a>
-            </span>
-
-          </div>
-
-        </div>
+      <!-- Authors -->
+      <div class="is-size-5">
+        Jialiang Zhang<sup>1,2*</sup>,
+        Junlong Tong<sup>1,3*</sup>,
+        Junyan Lin<sup>1,4*</sup>,
+        Hao Wu<sup>1</sup>,<br>
+        Yirong Sun<sup>1</sup>,
+        Yunpu Ma<sup>5</sup>,
+        Xiaoyu Shen<sup>1,6†</sup>
       </div>
+
+      <!-- Affiliations -->
+      <div class="is-size-6 mt-2">
+        <sup>1</sup>Institute of Digital Twin, Eastern Institute of Technology, Ningbo<br>
+        <sup>2</sup>Ocean University of China<br>
+        <sup>3</sup>Shanghai Jiao Tong University<br>
+        <sup>4</sup>The Hong Kong Polytechnic University<br>
+        <sup>5</sup>LMU Munich<br>
+        <sup>6</sup>Ningbo Key Laboratory of Spatial Intelligence<br>
+        <sup>*</sup>Equal Contribution &nbsp;&nbsp; <sup>†</sup>Corresponding Author
+      </div>
+
+      <!-- Links -->
+      <div class="mt-4">
+
+        <a href="https://arxiv.org/pdf/2603.02872.pdf" class="button is-dark is-rounded">
+          <span class="icon"><i class="fas fa-file-pdf"></i></span>
+          <span>Paper</span>
+        </a>
+
+        <a href="https://arxiv.org/abs/2603.02872" class="button is-dark is-rounded">
+          <span class="icon"><i class="ai ai-arxiv"></i></span>
+          <span>arXiv</span>
+        </a>
+
+        <a href="https://github.com/EIT-NLP/StreamingLLM/tree/main/TaYS" class="button is-dark is-rounded">
+          <span class="icon"><i class="fab fa-github"></i></span>
+          <span>Code</span>
+        </a>
+
+      </div>
+
     </div>
   </div>
 </section>
 
 <!-- Teaser -->
-<section class="hero teaser">
+<section class="section">
   <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video autoplay controls muted loop width="100%">
-        <source src="static/videos/demo.mp4" type="video/mp4">
-      </video>
 
-      <h2 class="subtitle has-text-centered">
-        TaYS enables real-time streaming Chain-of-Thought reasoning for large vision-language models,
-        achieving efficient long-video understanding with improved reasoning accuracy.
-      </h2>
-    </div>
+    <video autoplay controls muted loop width="100%">
+      <source src="static/videos/demo.mp4" type="video/mp4">
+    </video>
+
+    <p class="has-text-centered mt-2">
+      TaYS enables real-time streaming Chain-of-Thought reasoning for large vision-language models.
+    </p>
+
   </div>
 </section>
 
 <!-- Abstract -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
+
     <h2 class="title is-3 has-text-centered">Abstract</h2>
-    <div class="content has-text-justified">
-      <p>
-        Large Vision-Language Models (LVLMs) have demonstrated strong capabilities in multimodal reasoning,
-        yet they struggle with streaming video understanding due to memory and latency constraints.
-        We propose Think-as-You-See (TaYS), a novel framework for streaming Chain-of-Thought reasoning.
-        TaYS introduces a causal streaming mechanism that incrementally processes video frames while
-        maintaining temporal coherence. We further design an efficient memory mechanism with dual KV-cache
-        and decoupled positional encoding. Experiments show that TaYS significantly improves both reasoning
-        performance and efficiency on long-video tasks.
-      </p>
-    </div>
+
+    <p>
+      Large Vision-Language Models (LVLMs) struggle with streaming video reasoning due to memory and latency constraints.
+      We propose Think-as-You-See (TaYS), a streaming Chain-of-Thought framework that incrementally processes video frames
+      while maintaining reasoning consistency. TaYS introduces dual KV-cache and decoupled positional encoding for efficient
+      long-context modeling. Experiments demonstrate strong improvements in both efficiency and reasoning quality.
+    </p>
+
+  </div>
+</section>
+
+<!-- Highlights -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Highlights</h2>
+
+    <ul>
+      <li>🔥 First streaming Chain-of-Thought framework for LVLMs</li>
+      <li>⚡ Real-time reasoning without waiting for full video</li>
+      <li>🧠 Efficient dual KV-cache design</li>
+      <li>📈 Strong performance on long-video reasoning tasks</li>
+    </ul>
+
   </div>
 </section>
 
 <!-- Method -->
 <section class="section">
   <div class="container is-max-desktop">
+
     <h2 class="title is-3 has-text-centered">Method</h2>
 
-    <img src="static/images/pipeline.png" alt="pipeline">
-    <p class="has-text-centered">
-      Overview of TaYS streaming reasoning framework.
-    </p>
+    <img src="static/images/pipeline.png">
+    <p class="has-text-centered">Overview of TaYS framework.</p>
+
   </div>
 </section>
 
 <!-- Results -->
 <section class="section">
   <div class="container is-max-desktop">
+
     <h2 class="title is-3 has-text-centered">Results</h2>
 
-    <img src="static/images/results.png" alt="results">
-    <p class="has-text-centered">
-      TaYS achieves superior performance on streaming video reasoning tasks.
-    </p>
-  </div>
-</section>
+    <img src="static/images/results.png">
+    <p class="has-text-centered">Comparison with baselines.</p>
 
-<!-- Video -->
-<section class="section hero is-light">
-  <div class="container">
-    <h2 class="title is-3 has-text-centered">Video</h2>
-
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <iframe width="100%" height="400"
-          src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-          frameborder="0" allowfullscreen>
-        </iframe>
-      </div>
-    </div>
   </div>
 </section>
 
 <!-- BibTeX -->
 <section class="section">
   <div class="container is-max-desktop">
+
     <h2 class="title">BibTeX</h2>
 
-<pre><code>@inproceedings{tays2026,
-  title={Think-as-You-See: Streaming Chain-of-Thought Reasoning for LVLMs},
-  author={Zhang, Jialiang and Tong, Junlong and Lin, Junyan and others},
-  booktitle={CVPR},
+<pre><code>@article{tays2026,
+  title={Think-as-You-See: Streaming Chain-of-Thought Reasoning for Large Vision-Language Models},
+  author={Zhang, Jialiang and Tong, Junlong and Lin, Junyan and Wu, Hao and Sun, Yirong and Ma, Yunpu and Shen, Xiaoyu},
+  journal={arXiv preprint arXiv:2603.02872},
   year={2026}
 }</code></pre>
 
@@ -170,9 +180,7 @@
 
 <footer class="footer">
   <div class="content has-text-centered">
-    <p>
-      This project page is based on the Academic Project Page Template.
-    </p>
+    <p>Project Page for TaYS (CVPR 2026)</p>
   </div>
 </footer>
 
